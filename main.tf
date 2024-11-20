@@ -13,7 +13,7 @@ terraform {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = var.bucket_name
+  bucket = "${var.bucket_name}-${random_id.bucket_suffix.hex}"  # 고유한 버킷 이름 생성
   acl    = var.bucket_acl
 
   tags = {
