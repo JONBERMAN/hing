@@ -13,7 +13,7 @@ terraform {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "aws-7th" # 고유한 버킷 이름 생성
+  bucket = "FrankOcean" # 고유한 버킷 이름 생성
   acl    = var.bucket_acl
 
   tags = {
