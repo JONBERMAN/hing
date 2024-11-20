@@ -17,29 +17,40 @@ jobs:
 
       # 2. Terraform 설치
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.0
 
       # 3. Terraform 초기화
       - name: Terraform Init
+        working-directory: ./cicd  # Terraform 파일이 위치한 디렉토리 경로
         run: terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       # 4. Terraform 코드 유효성 검증
       - name: Terraform Validate
+        working-directory: ./cicd  # Terraform 파일이 위치한 디렉토리 경로
         run: terraform validate
 
       # 5. Terraform 포맷 확인
       - name: Terraform Format Check
+        working-directory: ./cicd  # Terraform 파일이 위치한 디렉토리 경로
         run: terraform fmt -check
 
       # 6. Terraform Plan 생성
       - name: Terraform Plan
+        working-directory: ./cicd  # Terraform 파일이 위치한 디렉토리 경로
         run: terraform plan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       # 7. Terraform Apply (main 브랜치에 병합될 때만 실행)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
+        working-directory: ./cicd  # Terraform 파일이 위치한 디렉토리 경로
         run: terraform apply -auto-approve
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
