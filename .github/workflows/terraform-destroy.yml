@@ -1,6 +1,7 @@
 name: Terraform Destroy CI/CD
 
 on:
+  workflow_dispatch: # 수동 실행
   push:
     branches:
       - destroy # destroy 브랜치에 푸시 시 실행
