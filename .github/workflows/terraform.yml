@@ -28,6 +28,14 @@ jobs:
         with:
           terraform_version: 1.5.0
 
+       # 3. .terraform 폴더 및 상태 파일 삭제
+      - name: Clean Terraform state files
+        run: |
+          rm -rf .terraform/terraform.tfstate
+          rm -rf .terraform/terraform.tfstate.backup
+          rm -rf .terraform/
+
+
       # 4. Terraform 초기화
       - name: Terraform Init
         run: terraform init
