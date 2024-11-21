@@ -14,7 +14,7 @@ terraform {
 
 resource "aws_s3_bucket" "example" {
   bucket = "newnewtest" # 고유한 버킷 이름 생성
-  acl    = "private" 
+  acl    = "private"
 
   tags = {
     Name        = var.bucket_tag_name
